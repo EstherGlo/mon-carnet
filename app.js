@@ -195,6 +195,28 @@ function jourDuJour() {
 
 let jourActif = ORDRE_JOURS[jourDuJour()];
 
+/* ---------- Calcul automatique des dates de la semaine ---------- */
+function calculerDatesSemaine() {
+  const aujourdHui = new Date();
+  // Calcul du lundi de cette semaine (lundi = 1, dimanche = 0)
+  const jsDay = aujourdHui.getDay();
+  const decalage = jsDay === 0 ? -6 : 1 - jsDay;
+  const lundi = new Date(aujourdHui);
+  lundi.setDate(aujourdHui.getDate() + decalage);
+
+  const moisCourt = ["janv.", "févr.", "mars", "avr.", "mai", "juin",
+                     "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+
+  const resultat = {};
+  ORDRE_JOURS.forEach((jour, index) => {
+    const d = new Date(lundi);
+    d.setDate(lundi.getDate() + index);
+    const nom = jour.charAt(0).toUpperCase() + jour.slice(1);
+    resultat[jour] = `${nom} ${d.getDate()} ${moisCourt[d.getMonth()]}`;
+  });
+  return resultat;
+}
+
 /* ------------------------------------------------------------
    PARTIE 4 — THÈME + PRÉNOM + POLICE
    ------------------------------------------------------------ */
@@ -294,7 +316,9 @@ function afficherJour() {
   if (!conteneur) return;
   const jour = programme[jourActif];
   if (!jour) return;
-  conteneur.innerHTML = `<h2 style="margin-bottom:1rem;">${jour.label}</h2>`;
+    const datesAuto = calculerDatesSemaine();
+  const labelAffiche = datesAuto[jourActif] || jour.label;
+  conteneur.innerHTML = `<h2 style="margin-bottom:1rem;">${labelAffiche}</h2>`;
 
   if (jour.fasting) {
     const b = document.createElement("div");
