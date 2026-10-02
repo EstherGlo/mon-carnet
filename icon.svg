@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Fond rose très pâle arrondi -->
+  <rect x="0" y="0" width="512" height="512" rx="100" fill="#faf0f5"/>
+
+  <defs>
+    <linearGradient id="gradMoniteur" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b89ac0"/>
+      <stop offset="55%" stop-color="#9b7ab8"/>
+      <stop offset="100%" stop-color="#5e3f7e"/>
+    </linearGradient>
+    <linearGradient id="gradPied" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7c5a9e"/>
+      <stop offset="100%" stop-color="#4e3268"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Halo mauve très pâle -->
+  <circle cx="256" cy="240" r="185" fill="#ede0ef" opacity="0.55"/>
+
+  <!-- Ombre portée du moniteur -->
+  <rect x="140" y="130" width="240" height="185" rx="26" fill="rgba(74, 50, 100, 0.18)"/>
+
+  <!-- Écran du moniteur -->
+  <rect x="132" y="122" width="240" height="185" rx="26" fill="url(#gradMoniteur)"/>
+
+  <!-- Bordure intérieure fine -->
+  <rect x="148" y="138" width="208" height="153" rx="16" fill="none" stroke="#faf0f5" stroke-width="3" opacity="0.55"/>
+
+  <!-- ════════ GRAPHIQUE 1 : Barres à 3 nuances (gauche) ════════ -->
+  <rect x="172" y="195" width="13" height="70" rx="3" fill="#faf0f5"/>
+  <rect x="192" y="175" width="13" height="90" rx="3" fill="#c9a7d8"/>
+  <rect x="212" y="225" width="13" height="40" rx="3" fill="#4e3268" opacity="0.85"/>
+  <line x1="166" y1="268" x2="232" y2="268" stroke="#faf0f5" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- ════════ GRAPHIQUE 2 : Anneau aminci avec 75% ════════ -->
+  <circle cx="290" cy="205" r="38" fill="none" stroke="#4e3268" stroke-width="10" opacity="0.35"/>
+  <path d="M 290 167 A 38 38 0 1 1 262 229" 
+        stroke="#faf0f5" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <text x="290" y="211" font-size="19" font-weight="700" fill="#faf0f5" 
+        text-anchor="middle" font-family="Georgia, serif">75%</text>
+
+  <!-- ════════ GRAPHIQUE 3 : Courbe DESCENDUE de 12 pixels ════════ -->
+  <!-- Ancien tracé : 252,260 → 278,244 → 298,252 → 322,228 -->
+  <!-- Nouveau tracé : +12 sur chaque Y pour descendre la courbe -->
+  <polyline points="252,272 278,256 298,264 322,240" 
+            fill="none" stroke="#c9a7d8" stroke-width="4" 
+            stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+
+  <!-- Points sur la courbe (aux nouvelles positions) -->
+  <circle cx="252" cy="272" r="3.5" fill="#c9a7d8"/>
+  <circle cx="278" cy="256" r="3.5" fill="#c9a7d8"/>
+  <circle cx="298" cy="264" r="3.5" fill="#c9a7d8"/>
+  <circle cx="322" cy="240" r="4" fill="#faf0f5"/>
+
+  <!-- ════════ Pied du moniteur ════════ -->
+  <rect x="220" y="307" width="64" height="18" rx="6" fill="url(#gradPied)"/>
+  <rect x="196" y="325" width="112" height="14" rx="7" fill="url(#gradPied)"/>
+
+  <!-- ════════ SIGNATURE : Étoile ✦ ════════ -->
+  <text x="410" y="105" font-size="48" fill="#9b7ab8" opacity="0.9" text-anchor="middle">✦</text>
+</svg>
