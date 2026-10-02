@@ -1,14 +1,17 @@
 /* ============================================================
    Service Worker — Cache pour fonctionnement hors-ligne
+   Version : v2 (mise à jour auto)
    ============================================================ */
 
-const CACHE_NAME = "carnet-esther-v1";
+const CACHE_NAME = "carnet-esther-v2";
+
 const FICHIERS_A_CACHER = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
   "./manifest.json",
+  "./icon.svg",
   "./icon-192.png",
   "./icon-512.png"
 ];
@@ -20,6 +23,7 @@ self.addEventListener("install", (event) => {
       return cache.addAll(FICHIERS_A_CACHER);
     })
   );
+  // Force le nouveau SW à prendre le relais immédiatement
   self.skipWaiting();
 });
 
@@ -35,11 +39,27 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-/* Interception des requêtes : on sert depuis le cache si possible */
+/* Interception des requêtes :
+   - On essaie d'abord le RÉSEAU (pour avoir la dernière version)
+   - Si pas de réseau, on sert le CACHE
+*/
 self.addEventListener("fetch", (event) => {
+  // Ne pas intercepter les requêtes non-GET
+  if (event.request.method !== "GET") return;
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
+    fetch(event.request)
+      .then((response) => {
+        // Met à jour le cache avec la nouvelle version
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseClone);
+        });
+        return response;
+      })
+      .catch(() => {
+        // Pas de réseau → on sert depuis le cache
+        return caches.match(event.request);
+      })
   );
 });

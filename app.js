@@ -3,121 +3,111 @@
    ============================================================ */
 
 /* ------------------------------------------------------------
-   PARTIE 1 — PROGRAMME PAR DÉFAUT (tes données personnalisées)
+   PARTIE 1 — PROGRAMME NEUTRE PAR DÉFAUT
    ------------------------------------------------------------ */
 
 const PROGRAMME_PAR_DEFAUT = {
   lundi: {
-    label: "Lundi 28 sept",
-    fasting: true,
+    label: "Lundi",
     slots: [
-      { time: "02h30", cat: "revision",      text: "Cours du lundi: nouvel EDT ISSEA à intégrer" },
-      { time: "4h00",  cat: "spiritualite",  text: "Prière-Méditation de la Parole" },
-      { time: "7h30-15h00", cat: "cours",    text: "ISSEA" },
-      { time: "15h00", cat: "organisation",  text: "Trajet retour - pas de collation" },
-      { time: "16h00", cat: "organisation",  text: "Pause calme" },
-      { time: "16h45", cat: "revision",      text: "Révision : BDD 1" },
-      { time: "18h00", cat: "spiritualite",  text: "Rupture du jeûne & dîner" },
-      { time: "19h00", cat: "auto-formation",text: "Langage R" },
-      { time: "20h30", cat: "actualite",     text: "France 24 / RFI Afrique à la maison" },
-      { time: "21h00", cat: "lecture",       text: "Livre en cours" },
-      { time: "21h30", cat: "organisation",  text: "Préparation du sac & coucher" }
+      { time: "04h30", cat: "spiritualite",  text: "Prière & méditation" },
+      { time: "07h30", cat: "cours",         text: "Cours" },
+      { time: "15h00", cat: "organisation",  text: "Trajet retour" },
+      { time: "16h00", cat: "organisation",  text: "Pause" },
+      { time: "17h00", cat: "revision",      text: "Révisions du jour" },
+      { time: "19h00", cat: "auto-formation",text: "Auto-formation" },
+      { time: "20h30", cat: "actualite",     text: "Suivi de l'actualité" },
+      { time: "21h00", cat: "lecture",       text: "Lecture" },
+      { time: "21h30", cat: "organisation",  text: "Préparation & coucher" }
     ]
   },
   mardi: {
-    label: "Mardi 29 sept",
+    label: "Mardi",
     slots: [
-      { time: "02h30", cat: "revision",      text: "Cours du mardi: BDD1 - Concurrence imparfaite" },
-      { time: "4h30",  cat: "spiritualite",  text: "Prière-Méditation de la Parole" },
-      { time: "7h30-15h00", cat: "cours",    text: "ISSEA" },
+      { time: "04h30", cat: "spiritualite",  text: "Prière & méditation" },
+      { time: "07h30", cat: "cours",         text: "Cours" },
       { time: "15h00", cat: "organisation",  text: "Trajet retour" },
-      { time: "16h00", cat: "organisation",  text: "Pause & collation" },
-      { time: "17h00", cat: "revision",      text: "Révision : Logiciels de saisie · BDD 1 · Concurrence imparfaite" },
-      { time: "19h00", cat: "auto-formation",text: "Bases de données (pratique SGBD)" },
-      { time: "20h30", cat: "actualite",     text: "France 24 / RFI Afrique" },
-      { time: "21h00", cat: "lecture",       text: "Livre en cours" },
+      { time: "16h00", cat: "organisation",  text: "Pause" },
+      { time: "17h00", cat: "revision",      text: "Révisions du jour" },
+      { time: "19h00", cat: "auto-formation",text: "Auto-formation" },
+      { time: "20h30", cat: "actualite",     text: "Suivi de l'actualité" },
+      { time: "21h00", cat: "lecture",       text: "Lecture" },
       { time: "21h30", cat: "organisation",  text: "Préparation & coucher" }
     ]
   },
   mercredi: {
-    label: "Mercredi 30 sept",
+    label: "Mercredi",
     slots: [
-      { time: "02h30", cat: "revision",      text: "Cours du mercredi: Microéconomie de l'incertain - Stat. inf." },
-      { time: "4h30",  cat: "spiritualite",  text: "Prière-Méditation de la Parole" },
-      { time: "7h30-14h30", cat: "cours",    text: "ISSEA" },
+      { time: "04h30", cat: "spiritualite",  text: "Prière & méditation" },
+      { time: "07h30", cat: "cours",         text: "Cours" },
       { time: "15h00", cat: "organisation",  text: "Trajet retour" },
-      { time: "16h00", cat: "organisation",  text: "Pause & collation" },
-      { time: "17h00", cat: "revision",      text: "Révision : Microéconomie incertain - Stat. inf." },
-      { time: "19h00", cat: "auto-formation",text: "SPSS" },
-      { time: "20h30", cat: "actualite",     text: "France 24 / RFI Afrique" },
-      { time: "21h00", cat: "lecture",       text: "Livre en cours" },
+      { time: "16h00", cat: "organisation",  text: "Pause" },
+      { time: "17h00", cat: "revision",      text: "Révisions du jour" },
+      { time: "19h00", cat: "auto-formation",text: "Auto-formation" },
+      { time: "20h30", cat: "actualite",     text: "Suivi de l'actualité" },
+      { time: "21h00", cat: "lecture",       text: "Lecture" },
       { time: "21h30", cat: "organisation",  text: "Préparation & coucher" }
     ]
   },
   jeudi: {
-    label: "Jeudi 1er oct",
+    label: "Jeudi",
     slots: [
-      { time: "02h30", cat: "revision",      text: "Cours du jeudi: Stat. inf. - Big data&Cloud computing" },
-      { time: "4h30",  cat: "spiritualite",  text: "Prière-Méditation de la Parole" },
-      { time: "7h30-15h00", cat: "cours",    text: "ISSEA" },
+      { time: "04h30", cat: "spiritualite",  text: "Prière & méditation" },
+      { time: "07h30", cat: "cours",         text: "Cours" },
       { time: "15h00", cat: "organisation",  text: "Trajet retour" },
-      { time: "16h00", cat: "organisation",  text: "Pause & collation" },
-      { time: "17h00", cat: "revision",      text: "Révision : Stat. inf. - Big Data" },
-      { time: "19h00", cat: "auto-formation",text: "Langage R" },
-      { time: "20h30", cat: "actualite",     text: "France 24 / RFI Afrique" },
-      { time: "21h00", cat: "lecture",       text: "Livre en cours" },
+      { time: "16h00", cat: "organisation",  text: "Pause" },
+      { time: "17h00", cat: "revision",      text: "Révisions du jour" },
+      { time: "19h00", cat: "auto-formation",text: "Auto-formation" },
+      { time: "20h30", cat: "actualite",     text: "Suivi de l'actualité" },
+      { time: "21h00", cat: "lecture",       text: "Lecture" },
       { time: "21h30", cat: "organisation",  text: "Préparation & coucher" }
     ]
   },
   vendredi: {
-    label: "Vendredi 2 oct",
-    fasting: true,
+    label: "Vendredi",
     slots: [
-      { time: "02h30", cat: "revision",      text: "Cours du vendredi: Logiciels de saisie - Microéconomie de l'incertain" },
-      { time: "4h00",  cat: "spiritualite",  text: "Prière-Méditation de la Parole" },
-      { time: "7h30-15h00", cat: "cours",    text: "ISSEA" },
-      { time: "15h00", cat: "organisation",  text: "Trajet retour - pas de collation" },
-      { time: "16h00", cat: "organisation",  text: "Pause calme" },
-      { time: "16h45", cat: "revision",      text: "Révision : Logiciels de saisie - Microéconomie" },
-      { time: "18h00", cat: "spiritualite",  text: "Rupture du jeûne & dîner" },
-      { time: "19h00", cat: "auto-formation",text: "Bases de données" },
-      { time: "20h30", cat: "actualite",     text: "France 24 / RFI Afrique" },
-      { time: "21h00", cat: "lecture",       text: "Livre en cours" },
-      { time: "21h30", cat: "organisation",  text: "Préparation du sac & coucher" }
+      { time: "04h30", cat: "spiritualite",  text: "Prière & méditation" },
+      { time: "07h30", cat: "cours",         text: "Cours" },
+      { time: "15h00", cat: "organisation",  text: "Trajet retour" },
+      { time: "16h00", cat: "organisation",  text: "Pause" },
+      { time: "17h00", cat: "revision",      text: "Révisions du jour" },
+      { time: "19h00", cat: "auto-formation",text: "Auto-formation" },
+      { time: "20h30", cat: "actualite",     text: "Suivi de l'actualité" },
+      { time: "21h00", cat: "lecture",       text: "Lecture" },
+      { time: "21h30", cat: "organisation",  text: "Préparation & coucher" }
     ]
   },
   samedi: {
-    label: "Samedi 3 oct",
+    label: "Samedi",
     slots: [
-      { time: "02h30", cat: "revision",      text: "Cours du samedi: anthropologie" },
-      { time: "4h30",  cat: "spiritualite",  text: "Prière-Méditation de la Parole" },
-      { time: "7h30-11h45", cat: "cours",    text: "ISSEA" },
+      { time: "04h30", cat: "spiritualite",  text: "Prière & méditation" },
+      { time: "07h30", cat: "cours",         text: "Cours" },
       { time: "12h00", cat: "organisation",  text: "Retour & déjeuner" },
-      { time: "13h00", cat: "organisation",  text: "Préparation des repas de la semaine" },
-      { time: "17h00", cat: "revision",      text: "Rattrapage anciennes épreuves & fiches de TD en retard" },
+      { time: "13h00", cat: "organisation",  text: "Préparation des repas" },
+      { time: "17h00", cat: "revision",      text: "Rattrapage & révisions" },
       { time: "19h30", cat: "organisation",  text: "Pause" },
-      { time: "20h00", cat: "actualite",     text: "France 24 / RFI Afrique" },
-      { time: "20h30", cat: "lecture",       text: "Livre en cours" },
+      { time: "20h00", cat: "actualite",     text: "Suivi de l'actualité" },
+      { time: "20h30", cat: "lecture",       text: "Lecture" },
       { time: "21h00", cat: "organisation",  text: "Soirée libre" }
     ]
   },
   dimanche: {
-    label: "Dimanche 4 oct",
+    label: "Dimanche",
     sport: true,
     slots: [
-      { time: "Matin", cat: "spiritualite",  text: "Eglise (2 dimanches sur 4) ou ménage" },
-      { time: "15h00", cat: "actualite",     text: "Synthèse de l'actualité de la semaine + lecture" },
-      { time: "16h00", cat: "sport",         text: "Séance de sport - la seule de la semaine, 1h" },
+      { time: "Matin", cat: "spiritualite",  text: "Église ou temps spirituel" },
+      { time: "15h00", cat: "actualite",     text: "Synthèse de la semaine" },
+      { time: "16h00", cat: "sport",         text: "Séance de sport" },
       { time: "17h00", cat: "organisation",  text: "Repos" },
-      { time: "18h00", cat: "organisation",  text: "Préparation de la semaine suivante - nouvel EDT ISSEA à intégrer" },
-      { time: "20h00", cat: "actualite",     text: "France 24 / RFI Afrique" },
-      { time: "20h30", cat: "lecture",       text: "Livre en cours" },
-      { time: "21h00", cat: "organisation",  text: "Préparation du sac & coucher" }
+      { time: "18h00", cat: "organisation",  text: "Préparation de la semaine" },
+      { time: "20h00", cat: "actualite",     text: "Suivi de l'actualité" },
+      { time: "20h30", cat: "lecture",       text: "Lecture" },
+      { time: "21h00", cat: "organisation",  text: "Préparation & coucher" }
     ]
   }
 };
 
-/* Programme vierge (structure vide, 7 jours sans créneaux) */
+/* Programme vierge */
 const PROGRAMME_VIERGE = {
   lundi:     { label: "Lundi",     slots: [] },
   mardi:     { label: "Mardi",     slots: [] },
@@ -162,20 +152,22 @@ function sauverEtat(e) {
   localStorage.setItem(KEY_ETAT, JSON.stringify(e));
 }
 
-/* ---------- Perso (prénom + thème) ---------- */
 function chargerPerso() {
   try {
     const saved = localStorage.getItem(KEY_PERSO);
-    if (saved) return JSON.parse(saved);
+    if (saved) {
+      const p = JSON.parse(saved);
+      if (!p.police) p.police = "originale"; /* ← compatibilité ancienne version */
+      return p;
+    }
   } catch (e) { console.warn("Erreur chargement perso", e); }
-  return { prenom: "", theme: "mauve", configure: false };
+  return { prenom: "", theme: "mauve", police: "originale", configure: false };
 }
 
 function sauverPerso(p) {
   localStorage.setItem(KEY_PERSO, JSON.stringify(p));
 }
 
-/* ---------- Archives de notes ---------- */
 function chargerArchives() {
   try {
     return JSON.parse(localStorage.getItem(KEY_ARCHIVES)) || [];
@@ -204,11 +196,24 @@ function jourDuJour() {
 let jourActif = ORDRE_JOURS[jourDuJour()];
 
 /* ------------------------------------------------------------
-   PARTIE 4 — APPLICATION DU THÈME + PRÉNOM
+   PARTIE 4 — THÈME + PRÉNOM + POLICE
    ------------------------------------------------------------ */
 
 function appliquerTheme(nomTheme) {
   document.documentElement.setAttribute("data-theme", nomTheme);
+}
+
+/* Correspondance entre l'identifiant de la police et la vraie famille CSS */
+const POLICES_CSS = {
+  originale:  '"Georgia", "Times New Roman", serif',
+  manuscrite: '"Segoe Script", "Lucida Handwriting", cursive',
+  elegante:   '"Palatino Linotype", "Palatino", "Book Antiqua", serif',
+  moderne:    '"Trebuchet MS", "Segoe UI", sans-serif'
+};
+
+function appliquerPolice(nomPolice) {
+  const famille = POLICES_CSS[nomPolice] || POLICES_CSS.originale;
+  document.documentElement.style.setProperty("--font-titre", famille);
 }
 
 function appliquerPrenom() {
@@ -224,8 +229,14 @@ function preRemplirFormulaires() {
   if (wname) wname.value = perso.prenom || "";
   if (sname) sname.value = perso.prenom || "";
 
+  /* Thème */
   document.querySelectorAll(".theme-btn").forEach(btn => {
     btn.classList.toggle("selected", btn.dataset.theme === perso.theme);
+  });
+
+  /* Police */
+  document.querySelectorAll(".font-btn").forEach(btn => {
+    btn.classList.toggle("selected", btn.dataset.font === perso.police);
   });
 }
 
@@ -574,7 +585,6 @@ function afficherHistorique() {
       afficherHistorique();
     });
 
-     // Bouton "Exporter en PDF" pour cette archive
     const btnPdf = document.createElement("button");
     btnPdf.className = "btn-delete-archive";
     btnPdf.style.color = "#5a3a6a";
@@ -589,31 +599,10 @@ function afficherHistorique() {
           <meta charset="UTF-8">
           <title>Note du ${archive.date}</title>
           <style>
-            body {
-              font-family: Georgia, serif;
-              padding: 2rem;
-              max-width: 700px;
-              margin: 0 auto;
-              color: #2c2c2c;
-              line-height: 1.8;
-            }
-            h1 {
-              color: #7c5a9e;
-              font-size: 1.4rem;
-              border-bottom: 2px solid #7c5a9e;
-              padding-bottom: 0.5rem;
-              margin-bottom: 1rem;
-            }
-            .date {
-              color: #888;
-              font-size: 0.9rem;
-              font-style: italic;
-              margin-bottom: 2rem;
-            }
-            .contenu {
-              white-space: pre-wrap;
-              font-size: 1rem;
-            }
+            body { font-family: Georgia, serif; padding: 2rem; max-width: 700px; margin: 0 auto; color: #2c2c2c; line-height: 1.8; }
+            h1 { color: #7c5a9e; font-size: 1.4rem; border-bottom: 2px solid #7c5a9e; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+            .date { color: #888; font-size: 0.9rem; font-style: italic; margin-bottom: 2rem; }
+            .contenu { white-space: pre-wrap; font-size: 1rem; }
           </style>
         </head>
         <body>
@@ -692,25 +681,39 @@ document.getElementById("edit-modal").addEventListener("click", (ev) => {
    PARTIE 14 — NAVIGATION ENTRE LES PAGES
    ------------------------------------------------------------ */
 
+document.getElementById("btn-voir-config").addEventListener("click", () => afficherPage("config"));
+
 document.getElementById("btn-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
+document.getElementById("btn-accueil-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
+document.getElementById("btn-accueil-vers-notes").addEventListener("click", () => afficherPage("notes"));
+document.getElementById("btn-accueil-vers-historique").addEventListener("click", () => afficherPage("historique"));
+document.getElementById("btn-accueil-vers-personnaliser").addEventListener("click", () => afficherPage("personnaliser"));
+
 document.getElementById("btn-carnet-vers-accueil").addEventListener("click", () => afficherPage("accueil"));
 document.getElementById("btn-carnet-vers-notes").addEventListener("click", () => afficherPage("notes"));
+document.getElementById("btn-carnet-vers-historique").addEventListener("click", () => afficherPage("historique"));
+
 document.getElementById("btn-notes-vers-accueil").addEventListener("click", () => afficherPage("accueil"));
 document.getElementById("btn-notes-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
 document.getElementById("btn-notes-vers-historique").addEventListener("click", () => afficherPage("historique"));
-document.getElementById("btn-historique-vers-notes").addEventListener("click", () => afficherPage("notes"));
+
 document.getElementById("btn-historique-vers-accueil").addEventListener("click", () => afficherPage("accueil"));
-document.getElementById("btn-accueil-vers-notes").addEventListener("click", () => afficherPage("notes"));
-document.getElementById("btn-accueil-vers-personnaliser").addEventListener("click", () => afficherPage("personnaliser"));
+document.getElementById("btn-historique-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
+document.getElementById("btn-historique-vers-notes").addEventListener("click", () => afficherPage("notes"));
+
 document.getElementById("btn-personnaliser-vers-accueil").addEventListener("click", () => afficherPage("accueil"));
+document.getElementById("btn-personnaliser-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
+document.getElementById("btn-personnaliser-vers-notes").addEventListener("click", () => afficherPage("notes"));
+document.getElementById("btn-personnaliser-vers-historique").addEventListener("click", () => afficherPage("historique"));
 
 /* ------------------------------------------------------------
-   PARTIE 15 — ÉCRAN DE BIENVENUE
+   PARTIE 15 — ÉCRAN DE CONFIGURATION
    ------------------------------------------------------------ */
 
 document.getElementById("btn-welcome-start").addEventListener("click", () => {
   const prenomInput = document.getElementById("welcome-name").value.trim();
-  const themeChoisi  = document.querySelector("#page-bienvenue .theme-btn.selected")?.dataset.theme || "mauve";
+  const themeChoisi  = document.querySelector("#page-config .theme-btn.selected")?.dataset.theme || "mauve";
+  const policeChoisie = document.querySelector("#page-config .font-btn.selected")?.dataset.font || "originale";
   const modeChoisi   = document.querySelector('input[name="start-mode"]:checked')?.value || "exemple";
 
   if (!prenomInput) {
@@ -720,6 +723,7 @@ document.getElementById("btn-welcome-start").addEventListener("click", () => {
 
   perso.prenom = prenomInput;
   perso.theme = themeChoisi;
+  perso.police = policeChoisie;
   perso.configure = true;
   sauverPerso(perso);
 
@@ -732,6 +736,7 @@ document.getElementById("btn-welcome-start").addEventListener("click", () => {
   }
 
   appliquerTheme(perso.theme);
+  appliquerPolice(perso.police);
   appliquerPrenom();
 
   construireNav();
@@ -740,7 +745,7 @@ document.getElementById("btn-welcome-start").addEventListener("click", () => {
   afficherPage("accueil");
 });
 
-/* Sélection d'un thème (bienvenue + personnaliser) */
+/* Sélection d'un thème */
 document.querySelectorAll(".theme-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("selected"));
@@ -749,6 +754,27 @@ document.querySelectorAll(".theme-btn").forEach(btn => {
   });
 });
 
+/* Sélection d'une police */
+document.querySelectorAll(".font-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".font-btn").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    appliquerPolice(btn.dataset.font);
+  });
+});
+
+/* Touche Entrée valide le champ prénom (bienvenue) */
+const welcomeNameInput = document.getElementById("welcome-name");
+if (welcomeNameInput) {
+  welcomeNameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      welcomeNameInput.blur();
+      document.getElementById("btn-welcome-start").click();
+    }
+  });
+}
+
 /* ------------------------------------------------------------
    PARTIE 16 — PAGE PERSONNALISER
    ------------------------------------------------------------ */
@@ -756,6 +782,7 @@ document.querySelectorAll(".theme-btn").forEach(btn => {
 document.getElementById("btn-settings-save").addEventListener("click", () => {
   const prenomInput = document.getElementById("settings-name").value.trim();
   const themeChoisi  = document.querySelector("#page-personnaliser .theme-btn.selected")?.dataset.theme || perso.theme;
+  const policeChoisie = document.querySelector("#page-personnaliser .font-btn.selected")?.dataset.font || perso.police;
 
   if (!prenomInput) {
     alert("Merci d'entrer un prénom.");
@@ -764,18 +791,44 @@ document.getElementById("btn-settings-save").addEventListener("click", () => {
 
   perso.prenom = prenomInput;
   perso.theme = themeChoisi;
+  perso.police = policeChoisie;
   perso.configure = true;
   sauverPerso(perso);
 
   appliquerTheme(perso.theme);
+  appliquerPolice(perso.police);
   appliquerPrenom();
 
   alert("✅ Modifications enregistrées !");
   afficherPage("accueil");
 });
 
+/* Touche Entrée valide le champ prénom (personnaliser) */
+const settingsNameInput = document.getElementById("settings-name");
+if (settingsNameInput) {
+  settingsNameInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      settingsNameInput.blur();
+      document.getElementById("btn-settings-save").click();
+    }
+  });
+}
+
 /* ------------------------------------------------------------
-   PARTIE 17 — EXPORT / IMPORT
+   PARTIE 17 — BOUTON RESET
+   ------------------------------------------------------------ */
+
+document.getElementById("btn-reset-app").addEventListener("click", () => {
+  if (!confirm("⚠️ Réinitialiser l'application ?\n\nTout sera effacé : prénom, thème, police, programme, notes, historique.\n\n(Exporte ton JSON avant si tu veux le garder)")) return;
+  if (!confirm("Vraiment sûr ? Cette action est irréversible.")) return;
+
+  localStorage.clear();
+  location.reload();
+});
+
+/* ------------------------------------------------------------
+   PARTIE 18 — EXPORT / IMPORT
    ------------------------------------------------------------ */
 
 document.getElementById("btn-export").addEventListener("click", () => {
@@ -837,6 +890,7 @@ document.getElementById("file-import").addEventListener("change", (ev) => {
       sauverArchives(archives);
 
       appliquerTheme(perso.theme);
+      appliquerPolice(perso.police || "originale");
       appliquerPrenom();
 
       if (notesEl) notesEl.value = etat.notes || "";
@@ -855,7 +909,7 @@ document.getElementById("file-import").addEventListener("change", (ev) => {
 });
 
 /* ------------------------------------------------------------
-   PARTIE 18 — EXPORT PDF
+   PARTIE 19 — EXPORT PDF (CARNET)
    ------------------------------------------------------------ */
 
 document.getElementById("btn-export-pdf").addEventListener("click", () => {
@@ -870,23 +924,9 @@ document.getElementById("btn-export-pdf").addEventListener("click", () => {
 });
 
 /* ------------------------------------------------------------
-   PARTIE 19 — DÉMARRAGE
+   PARTIE 20 — EXPORT PDF DES NOTES
    ------------------------------------------------------------ */
 
-appliquerTheme(perso.theme);
-construireNav();
-
-if (perso.configure && perso.prenom) {
-  appliquerPrenom();
-  afficherPage("accueil");
-} else {
-  afficherPage("bienvenue");
-}
-/* ------------------------------------------------------------
-   PARTIE 19 — EXPORT PDF DES NOTES
-   ------------------------------------------------------------ */
-
-/* Export des notes actuelles */
 document.getElementById("btn-notes-export-pdf").addEventListener("click", () => {
   const contenu = (etat.notes || "").trim();
   if (!contenu) {
@@ -898,7 +938,6 @@ document.getElementById("btn-notes-export-pdf").addEventListener("click", () => 
     day: "numeric", month: "long", year: "numeric"
   });
 
-  // Créer une fenêtre d'impression dédiée
   const win = window.open("", "_blank");
   win.document.write(`
     <!DOCTYPE html>
@@ -907,31 +946,10 @@ document.getElementById("btn-notes-export-pdf").addEventListener("click", () => 
       <meta charset="UTF-8">
       <title>Notes de la semaine — ${dateStr}</title>
       <style>
-        body {
-          font-family: Georgia, serif;
-          padding: 2rem;
-          max-width: 700px;
-          margin: 0 auto;
-          color: #2c2c2c;
-          line-height: 1.8;
-        }
-        h1 {
-          color: #7c5a9e;
-          font-size: 1.5rem;
-          border-bottom: 2px solid #7c5a9e;
-          padding-bottom: 0.5rem;
-          margin-bottom: 1rem;
-        }
-        .date {
-          color: #888;
-          font-size: 0.9rem;
-          font-style: italic;
-          margin-bottom: 2rem;
-        }
-        .contenu {
-          white-space: pre-wrap;
-          font-size: 1rem;
-        }
+        body { font-family: Georgia, serif; padding: 2rem; max-width: 700px; margin: 0 auto; color: #2c2c2c; line-height: 1.8; }
+        h1 { color: #7c5a9e; font-size: 1.5rem; border-bottom: 2px solid #7c5a9e; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        .date { color: #888; font-size: 0.9rem; font-style: italic; margin-bottom: 2rem; }
+        .contenu { white-space: pre-wrap; font-size: 1rem; }
       </style>
     </head>
     <body>
@@ -945,6 +963,21 @@ document.getElementById("btn-notes-export-pdf").addEventListener("click", () => 
   win.focus();
   setTimeout(() => win.print(), 300);
 });
+
+/* ------------------------------------------------------------
+   PARTIE 21 — DÉMARRAGE
+   ------------------------------------------------------------ */
+
+appliquerTheme(perso.theme);
+appliquerPolice(perso.police || "originale");
+construireNav();
+
+if (perso.configure && perso.prenom) {
+  appliquerPrenom();
+  afficherPage("accueil");
+} else {
+  afficherPage("bienvenue");
+}
 
 afficherJour();
 mettreAJourProgressionSemaine();
