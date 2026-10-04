@@ -1162,16 +1162,3 @@ a[href*="netlify.com"] {
   .slot-text { font-size: 0.8rem; color: #000; }
   .slot-category { font-size: 0.6rem; }
 }
-/* ---------- Page Accueil : structure pour pousser les boutons en bas ---------- */
-#page-accueil {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 2rem);
-}
-
-.accueil-top {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
