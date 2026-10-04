@@ -411,6 +411,7 @@ function afficherJour() {
   });
 
   mettreAJourProgression();
+  envoyerProgressionOneSignal();
 }
 
 /* ------------------------------------------------------------
@@ -471,7 +472,15 @@ function mettreAJourProgressionSemaine() {
 
 /* Envoie la progression à OneSignal (pour les notifications personnalisées) */
 function envoyerProgressionOneSignal() {
-  const pct = calculerPctSemaine();
+  // Progression DU JOUR (pas de la semaine)
+  const jour = programme[jourActif];
+  if (!jour || jour.slots.length === 0) return;
+  let faits = 0;
+  jour.slots.forEach((_, i) => {
+    if (etat.checked[`${jourActif}-${i}`]) faits++;
+  });
+  const pct = Math.round((faits / jour.slots.length) * 100);
+
   if (window.OneSignalDeferred) {
     window.OneSignalDeferred.push(async function(OneSignal) {
       try {
