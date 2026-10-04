@@ -15,12 +15,13 @@
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "616a6333-c0c9-48b8-9ed9-bd58b6eb3414",
-        serviceWorkerPath: "onesignal/OneSignalSDKWorker.js",
-        serviceWorkerParam: { scope: "/onesignal/" }
-      });
-    });
+  await OneSignal.init({
+    appId: "616a6333-c0c9-48b8-9ed9-bd58b6eb3414",
+    serviceWorkerPath: "onesignal/OneSignalSDKWorker.js",
+    serviceWorkerParam: { scope: "/onesignal/" }
+  });
+  await OneSignal.Slidedown.promptPush();
+});
   </script>
   <link rel="stylesheet" href="style.css">
 </head>
