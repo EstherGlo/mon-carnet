@@ -1,9 +1,9 @@
 /* ============================================================
    Service Worker — Cache pour fonctionnement hors-ligne
-   Version : v4 (mise à jour auto)
+   Version : v5 (mise à jour auto)
    ============================================================ */
 
-const CACHE_NAME = "carnet-esther-v4";
+const CACHE_NAME = "carnet-esther-v5";
 
 const FICHIERS_A_CACHER = [
   "./",
@@ -46,6 +46,8 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   // Ne pas intercepter les requêtes non-GET
   if (event.request.method !== "GET") return;
+    // Ne pas intercepter les requêtes OneSignal (laisser OneSignal gérer)
+  if (event.request.url.includes("/onesignal/")) return;
 
   event.respondWith(
     fetch(event.request)
