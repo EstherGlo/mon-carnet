@@ -243,6 +243,15 @@ function appliquerPrenom() {
   if (!el) return;
   const prenom = (perso.prenom || "").trim();
   el.textContent = prenom ? `Salut ${prenom} !` : "Salut !";
+
+  // Envoie le prénom à OneSignal
+  if (prenom && window.OneSignalDeferred) {
+    window.OneSignalDeferred.push(async function(OneSignal) {
+      try {
+        await OneSignal.User.addTag("prenom", prenom);
+      } catch (e) { /* ignore */ }
+    });
+  }
 }
 
 function preRemplirFormulaires() {
@@ -270,7 +279,14 @@ function afficherPage(nom) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const page = document.getElementById("page-" + nom);
   if (page) page.classList.add("active");
-  window.scrollTo(0, 0);
+
+  // Force le retour en haut (après le repaint pour que ça tienne)
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  });
+
   if (nom === "accueil") mettreAJourAccueil();
   if (nom === "carnet")  { afficherJour(); mettreAJourProgressionSemaine(); }
   if (nom === "personnaliser") preRemplirFormulaires();
@@ -370,6 +386,7 @@ function afficherJour() {
       sauverEtat(etat);
       mettreAJourProgression();
       mettreAJourProgressionSemaine();
+      envoyerProgressionOneSignal();
     });
 
     const body = document.createElement("div");
@@ -450,6 +467,18 @@ function mettreAJourProgressionSemaine() {
   const txt  = document.getElementById("pct-accueil");
   if (fill) fill.style.width = pct + "%";
   if (txt)  txt.textContent = pct + " %";
+}
+
+/* Envoie la progression à OneSignal (pour les notifications personnalisées) */
+function envoyerProgressionOneSignal() {
+  const pct = calculerPctSemaine();
+  if (window.OneSignalDeferred) {
+    window.OneSignalDeferred.push(async function(OneSignal) {
+      try {
+        await OneSignal.User.addTag("progression", String(pct));
+      } catch (e) { /* ignore */ }
+    });
+  }
 }
 
 function mettreAJourAccueil() { mettreAJourProgressionSemaine(); }
