@@ -242,7 +242,7 @@ function appliquerPrenom() {
   const el = document.getElementById("welcome-name-display");
   if (!el) return;
   const prenom = (perso.prenom || "").trim();
-  el.textContent = prenom ? `Coucou ${prenom} !` : "Coucou !";
+  el.textContent = prenom ? `Salut ${prenom} !` : "Salut !";
 }
 
 function preRemplirFormulaires() {
@@ -708,7 +708,6 @@ document.getElementById("edit-modal").addEventListener("click", (ev) => {
 document.getElementById("btn-voir-config").addEventListener("click", () => afficherPage("config"));
 
 document.getElementById("btn-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
-document.getElementById("btn-accueil-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
 document.getElementById("btn-accueil-vers-notes").addEventListener("click", () => afficherPage("notes"));
 document.getElementById("btn-accueil-vers-historique").addEventListener("click", () => afficherPage("historique"));
 document.getElementById("btn-accueil-vers-personnaliser").addEventListener("click", () => afficherPage("personnaliser"));
