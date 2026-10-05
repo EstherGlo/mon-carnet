@@ -243,15 +243,6 @@ function appliquerPrenom() {
   if (!el) return;
   const prenom = (perso.prenom || "").trim();
   el.textContent = prenom ? `Salut ${prenom} !` : "Salut !";
-
-  // Envoie le prénom à OneSignal
-  if (prenom && window.OneSignalDeferred) {
-    window.OneSignalDeferred.push(async function(OneSignal) {
-      try {
-        await OneSignal.User.addTag("prenom", prenom);
-      } catch (e) { /* ignore */ }
-    });
-  }
 }
 
 function preRemplirFormulaires() {
@@ -386,7 +377,6 @@ function afficherJour() {
       sauverEtat(etat);
       mettreAJourProgression();
       mettreAJourProgressionSemaine();
-      envoyerProgressionOneSignal();
     });
 
     const body = document.createElement("div");
@@ -411,7 +401,6 @@ function afficherJour() {
   });
 
   mettreAJourProgression();
-  envoyerProgressionOneSignal();
 }
 
 /* ------------------------------------------------------------
@@ -468,26 +457,6 @@ function mettreAJourProgressionSemaine() {
   const txt  = document.getElementById("pct-accueil");
   if (fill) fill.style.width = pct + "%";
   if (txt)  txt.textContent = pct + " %";
-}
-
-/* Envoie la progression à OneSignal (pour les notifications personnalisées) */
-function envoyerProgressionOneSignal() {
-  // Progression DU JOUR (pas de la semaine)
-  const jour = programme[jourActif];
-  if (!jour || jour.slots.length === 0) return;
-  let faits = 0;
-  jour.slots.forEach((_, i) => {
-    if (etat.checked[`${jourActif}-${i}`]) faits++;
-  });
-  const pct = Math.round((faits / jour.slots.length) * 100);
-
-  if (window.OneSignalDeferred) {
-    window.OneSignalDeferred.push(async function(OneSignal) {
-      try {
-        await OneSignal.User.addTag("progression", String(pct));
-      } catch (e) { /* ignore */ }
-    });
-  }
 }
 
 function mettreAJourAccueil() { mettreAJourProgressionSemaine(); }

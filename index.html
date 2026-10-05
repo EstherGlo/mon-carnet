@@ -10,36 +10,6 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="theme-color" content="#7c5a9e">
 
-    <!-- OneSignal : Notifications push -->
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "616a6333-c0c9-48b8-9ed9-bd58b6eb3414",
-        serviceWorkerPath: "OneSignalSDKWorker.js",
-        serviceWorkerParam: { scope: "/" }
-      });
-
-      // Identifiant unique de l'utilisateur (généré une seule fois, stocké dans le navigateur)
-      let userId = localStorage.getItem("carnet-user-id");
-      if (!userId) {
-        userId = "user-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
-        localStorage.setItem("carnet-user-id", userId);
-      }
-      await OneSignal.login(userId);
-
-      // Envoie le prénom si déjà configuré
-      try {
-        const perso = JSON.parse(localStorage.getItem("carnet-esther-perso-v1") || "{}");
-        if (perso.prenom) {
-          await OneSignal.User.addTag("prenom", perso.prenom);
-        }
-      } catch (e) { /* ignore */ }
-
-      await OneSignal.Slidedown.promptPush();
-    });
-  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
