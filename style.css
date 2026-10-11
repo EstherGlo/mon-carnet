@@ -1162,3 +1162,147 @@ a[href*="netlify.com"] {
   .slot-text { font-size: 0.8rem; color: #000; }
   .slot-category { font-size: 0.6rem; }
 }
+/* ═══════════════════════════════════════════
+   PAGE — MES STATISTIQUES
+   ═══════════════════════════════════════════ */
+
+.stats-encouragement {
+  background: linear-gradient(135deg, var(--c1-tres-clair), #fff);
+  border: 2px solid var(--c1-clair);
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  margin: 1rem 0 1.5rem;
+  text-align: center;
+  font-family: var(--font-titre, "Georgia", serif);
+  font-size: 1rem;
+  color: var(--c1-fonce2);
+  line-height: 1.6;
+}
+
+.stats-encouragement strong {
+  font-size: 1.6rem;
+  color: var(--c1);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.stats-section {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.stats-titre {
+  font-family: var(--font-titre, "Georgia", serif);
+  font-size: 1.05rem;
+  color: var(--c1-fonce2);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* Graphique en barres verticales */
+.stats-graphique {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 0.4rem;
+  height: 180px;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid var(--bordure);
+  margin-bottom: 0.8rem;
+}
+
+.stats-barre-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 0.3rem;
+}
+
+.stats-barre-valeur {
+  font-family: var(--font-titre, "Georgia", serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--c1);
+}
+
+.stats-barre {
+  width: 70%;
+  max-width: 40px;
+  background: linear-gradient(180deg, var(--c1-clair), var(--c1));
+  border-radius: 6px 6px 0 0;
+  min-height: 4px;
+  transition: height 0.5s;
+}
+
+.stats-barre.actuelle {
+  background: linear-gradient(180deg, var(--c1), var(--c1-fonce));
+  box-shadow: 0 0 0 2px var(--c1-fonce2);
+}
+
+.stats-barre-semaine {
+  font-family: var(--font-titre, "Georgia", serif);
+  font-size: 0.6rem;
+  color: var(--c1);
+  margin-top: 0.2rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Créneaux et jours */
+.stats-ligne {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--ligne);
+  font-family: var(--font-titre, "Georgia", serif);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.stats-ligne:last-child {
+  border-bottom: none;
+}
+
+.stats-ligne .label {
+  flex: 1;
+}
+
+.stats-ligne .pct {
+  font-weight: 700;
+  color: var(--c1);
+}
+
+.stats-ligne.bon .pct { color: #2e7d32; }
+.stats-ligne.mauvais .pct { color: #c0392b; }
+
+.stats-vide {
+  text-align: center;
+  font-family: "Segoe Script", cursive;
+  font-style: italic;
+  color: var(--c1);
+  padding: 1.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+/* Historique complet (caché par défaut) */
+#stats-historique-complet {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--bordure);
+}
+
+#stats-historique-complet.hidden {
+  display: none;
+}
+
+/* Bouton stats sur l'accueil */
+.btn-stats {
+  margin-top: 0.6rem !important;
+}

@@ -1,9 +1,9 @@
 /* ============================================================
    Service Worker — Cache pour fonctionnement hors-ligne
-   Version : v10 (mise à jour auto)
+   Version : v11 (mise à jour auto)
    ============================================================ */
 
-const CACHE_NAME = "carnet-esther-v10";
+const CACHE_NAME = "carnet-esther-v11";
 
 const FICHIERS_A_CACHER = [
   "./",

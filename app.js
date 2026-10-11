@@ -129,6 +129,7 @@ const KEY_PROGRAMME = "carnet-esther-programme-v1";
 const KEY_ETAT      = "carnet-esther-etat-v1";
 const KEY_PERSO     = "carnet-esther-perso-v1";
 const KEY_ARCHIVES  = "carnet-esther-archives-v1";
+const KEY_STATS     ="carnet-esther-stats-hebdo-v1";
 
 function chargerProgramme() {
   try {
@@ -282,6 +283,7 @@ function afficherPage(nom) {
   if (nom === "carnet")  { afficherJour(); mettreAJourProgressionSemaine(); }
   if (nom === "personnaliser") preRemplirFormulaires();
   if (nom === "historique") afficherHistorique();
+  if (nom === "statistiques") afficherStatistiques();
 }
 
 /* ------------------------------------------------------------
@@ -461,6 +463,265 @@ function mettreAJourProgressionSemaine() {
 
 function mettreAJourAccueil() { mettreAJourProgressionSemaine(); }
 
+/* ------------------------------------------------------------
+   PARTIE 8bis — STATISTIQUES HEBDOMADAIRES
+   ------------------------------------------------------------ */
+
+/* Charge l'historique des semaines */
+function chargerStats() {
+  try {
+    return JSON.parse(localStorage.getItem(KEY_STATS)) || [];
+  } catch { return []; }
+}
+
+/* Sauvegarde l'historique des semaines */
+function sauverStats(s) {
+  localStorage.setItem(KEY_STATS, JSON.stringify(s));
+}
+
+/* Calcule la date du lundi de la semaine en cours */
+function obtenirLundiSemaine() {
+  const d = new Date();
+  const jsDay = d.getDay();
+  const decalage = jsDay === 0 ? -6 : 1 - jsDay;
+  const lundi = new Date(d);
+  lundi.setDate(d.getDate() + decalage);
+  lundi.setHours(0, 0, 0, 0);
+  return lundi;
+}
+
+/* Vérifie si une nouvelle semaine a commencé et archive la précédente */
+function verifierSauvegardeHebdo() {
+  const lundiActuel = obtenirLundiSemaine();
+  const dateActuelleStr = lundiActuel.toISOString().slice(0, 10);
+  const derniereSemaineVue = localStorage.getItem("carnet-derniere-semaine-vue");
+
+  // Premier lancement : on note la semaine actuelle, on n'archive rien
+  if (!derniereSemaineVue) {
+    localStorage.setItem("carnet-derniere-semaine-vue", dateActuelleStr);
+    return;
+  }
+
+  // Si on est toujours dans la même semaine, rien à faire
+  if (derniereSemaineVue === dateActuelleStr) return;
+
+  // Sinon : une nouvelle semaine a commencé → on archive la précédente
+  const pctSemainePassee = calculerPctSemaine();
+
+  if (pctSemainePassee > 0) {
+    const stats = chargerStats();
+    const dejaEnregistree = stats.some(s => s.date === derniereSemaineVue);
+    if (!dejaEnregistree) {
+      stats.push({ date: derniereSemaineVue, pct: pctSemainePassee });
+      sauverStats(stats);
+    }
+  }
+
+  // Réinitialiser les cases cochées pour la nouvelle semaine
+  etat.checked = {};
+  etat.notes = etat.notes || "";
+  sauverEtat(etat);
+  if (notesEl) notesEl.value = etat.notes;
+
+  // Mettre à jour la semaine vue
+  localStorage.setItem("carnet-derniere-semaine-vue", dateActuelleStr);
+}
+
+/* Enregistre la semaine actuelle quand elle est terminée */
+function sauvegarderSemaineActuelle() {
+  const lundiActuel = obtenirLundiSemaine();
+  const dateStr = lundiActuel.toISOString().slice(0, 10);
+  const stats = chargerStats();
+
+  const pct = calculerPctSemaine();
+  if (pct === 0) return;
+
+  const index = stats.findIndex(s => s.date === dateStr);
+  if (index >= 0) {
+    stats[index].pct = pct;
+  } else {
+    stats.push({ date: dateStr, pct: pct });
+  }
+  sauverStats(stats);
+}
+
+/* Affiche la page statistiques */
+function afficherStatistiques() {
+  const stats = chargerStats();
+  const pctActuel = calculerPctSemaine();
+
+  // 1. Message d'encouragement
+  const encEl = document.getElementById("stats-encouragement");
+  if (encEl) {
+    let msg = "";
+    if (pctActuel < 30) msg = "🌟 Cette semaine, tu es à <strong>" + pctActuel + "%</strong>Ce n'est pas grave — l'important c'est de continuer. Demain est un nouveau jour.";
+    else if (pctActuel < 50) msg = "💪 Tu es à <strong>" + pctActuel + "%</strong>C'est un bon début ! Chaque petit pas compte.";
+    else if (pctActuel < 70) msg = "✨ <strong>" + pctActuel + "%</strong>Belle semaine ! Tu es sur la bonne voie, continue comme ça.";
+    else if (pctActuel < 90) msg = "🎉 <strong>" + pctActuel + "%</strong>Semaine excellente. Tu peux être fier(e) de toi.";
+    else msg = "🏆 <strong>" + pctActuel + "%</strong>Semaine exceptionnelle ! Tu es un modèle de discipline. Bravo !";
+    encEl.innerHTML = msg;
+  }
+
+  // 2. Graphique (8 dernières semaines)
+  const graphEl = document.getElementById("stats-graphique");
+  if (graphEl) {
+    const toutes = [...stats].sort((a, b) => a.date.localeCompare(b.date));
+    // On ajoute aussi la semaine actuelle
+    const lundiActuel = obtenirLundiSemaine();
+    const dateActuelle = lundiActuel.toISOString().slice(0, 10);
+    if (!toutes.some(s => s.date === dateActuelle)) {
+      toutes.push({ date: dateActuelle, pct: pctActuel });
+    }
+    const recentes = toutes.slice(-8);
+
+    if (recentes.length === 0) {
+      graphEl.innerHTML = '<div class="stats-vide">Pas encore de données. Reviens la semaine prochaine !</div>';
+    } else {
+      graphEl.innerHTML = recentes.map(s => {
+        const hauteur = Math.max(s.pct, 2); // min 2% pour visibilité
+        const estActuelle = s.date === dateActuelle;
+        const numSemaine = obtenirNumeroSemaine(s.date);
+        return `
+          <div class="stats-barre-item">
+            <span class="stats-barre-valeur">${s.pct}%</span>
+            <div class="stats-barre ${estActuelle ? 'actuelle' : ''}" style="height: ${hauteur}%;"></div>
+            <span class="stats-barre-semaine">Sem. ${numSemaine}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // Bouton "Voir tout"
+    const btnTout = document.getElementById("btn-voir-tout");
+    if (btnTout) {
+      btnTout.style.display = toutes.length > 8 ? "inline-flex" : "none";
+    }
+  }
+
+  // 3. Créneaux les plus/moins respectés
+  afficherStatsCreneaux();
+
+  // 4. Meilleur jour / jour difficile
+  afficherStatsJours();
+}
+
+/* Numéro de semaine dans l'année */
+function obtenirNumeroSemaine(dateStr) {
+  const d = new Date(dateStr);
+  const debut = new Date(d.getFullYear(), 0, 1);
+  const jours = Math.floor((d - debut) / (24 * 60 * 60 * 1000));
+  return Math.ceil((jours + debut.getDay() + 1) / 7);
+}
+
+/* Formate une date de lundi en "6 oct." */
+function formaterDateSemaine(dateStr) {
+  const d = new Date(dateStr);
+  const mois = ["janv.", "févr.", "mars", "avr.", "mai", "juin",
+                "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+  return `${d.getDate()} ${mois[d.getMonth()]}`;
+}
+
+/* Analyse des créneaux (toutes les semaines confondues) */
+function afficherStatsCreneaux() {
+  const el = document.getElementById("stats-creneaux");
+  if (!el) return;
+
+  // On n'a que la semaine actuelle dans localStorage (états cochés)
+  // Pour un vrai historique, il faudrait sauvegarder chaque semaine
+  // Pour l'instant, on fait avec ce qu'on a
+  const stats = chargerStats();
+  if (stats.length < 2) {
+    el.innerHTML = '<div class="stats-vide">Ces statistiques deviendront précises après quelques semaines.</div>';
+    return;
+  }
+
+  // Calcul basé sur la semaine actuelle uniquement
+  const jour = programme[jourActif];
+  if (!jour || jour.slots.length === 0) {
+    el.innerHTML = '<div class="stats-vide">Aucun créneau cette semaine.</div>';
+    return;
+  }
+
+  let maxSlot = null, maxPct = 0;
+  let minSlot = null, minPct = 100;
+
+  jour.slots.forEach((slot, i) => {
+    // On regarde sur la semaine entière
+    let total = 0, faits = 0;
+    ORDRE_JOURS.forEach(j => {
+      const jourJ = programme[j];
+      if (!jourJ) return;
+      const idx = jourJ.slots.findIndex(s => s.text === slot.text && s.time === slot.time);
+      if (idx >= 0) {
+        total++;
+        if (etat.checked[`${j}-${idx}`]) faits++;
+      }
+    });
+    if (total === 0) return;
+    const pct = Math.round((faits / total) * 100);
+    if (pct > maxPct) { maxPct = pct; maxSlot = slot; }
+    if (pct < minPct) { minPct = pct; minSlot = slot; }
+  });
+
+  if (!maxSlot) {
+    el.innerHTML = '<div class="stats-vide">Pas assez de données.</div>';
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="stats-ligne bon">
+      <span class="label">✨ Le mieux tenu :<br><small>${maxSlot.time} — ${maxSlot.text}</small></span>
+      <span class="pct">${maxPct}%</span>
+    </div>
+    <div class="stats-ligne mauvais">
+      <span class="label">⚠️ Le moins tenu :<br><small>${minSlot.time} — ${minSlot.text}</small></span>
+      <span class="pct">${minPct}%</span>
+    </div>
+  `;
+}
+
+/* Analyse des jours (toutes les semaines confondues) */
+function afficherStatsJours() {
+  const el = document.getElementById("stats-jours");
+  if (!el) return;
+
+  const stats = chargerStats();
+  if (stats.length < 2) {
+    el.innerHTML = '<div class="stats-vide">Ces statistiques deviendront précises après quelques semaines.</div>';
+    return;
+  }
+
+  const parJour = {};
+  ORDRE_JOURS.forEach(j => {
+    const jour = programme[j];
+    if (!jour || jour.slots.length === 0) return;
+    let faits = 0;
+    jour.slots.forEach((_, i) => {
+      if (etat.checked[`${j}-${i}`]) faits++;
+    });
+    parJour[j] = Math.round((faits / jour.slots.length) * 100);
+  });
+
+  const joursTries = Object.entries(parJour).sort((a, b) => b[1] - a[1]);
+  if (joursTries.length === 0) {
+    el.innerHTML = '<div class="stats-vide">Pas assez de données.</div>';
+    return;
+  }
+
+  const meilleur = joursTries[0];
+  const pire = joursTries[joursTries.length - 1];
+
+  el.innerHTML = `
+    <div class="stats-ligne bon">
+      <span class="label">🏆 Meilleur jour : <strong>${programme[meilleur[0]].label}</strong></span>
+      <span class="pct">${meilleur[1]}%</span>
+    </div>
+    <div class="stats-ligne mauvais">
+      <span class="label">😓 Jour difficile : <strong>${programme[pire[0]].label}</strong></span>
+      <span class="pct">${pire[1]}%</span>
+    </div>
+  `;
+}
 /* ------------------------------------------------------------
    PARTIE 9 — MODE ÉDITION
    ------------------------------------------------------------ */
@@ -715,6 +976,28 @@ document.getElementById("edit-modal").addEventListener("click", (ev) => {
 document.getElementById("btn-voir-config").addEventListener("click", () => afficherPage("config"));
 
 document.getElementById("btn-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
+document.getElementById("btn-vers-stats").addEventListener("click", () => afficherPage("statistiques"));
+const btnVoirTout = document.getElementById("btn-voir-tout");
+if (btnVoirTout) {
+  btnVoirTout.addEventListener("click", () => {
+    const el = document.getElementById("stats-historique-complet");
+    if (!el) return;
+    if (el.classList.contains("hidden")) {
+      const stats = chargerStats().sort((a, b) => a.date.localeCompare(b.date));
+      el.innerHTML = stats.map(s => `
+        <div class="stats-ligne">
+          <span class="label">Semaine du ${formaterDateSemaine(s.date)}</span>
+          <span class="pct">${s.pct}%</span>
+        </div>
+      `).join("") || '<div class="stats-vide">Aucune semaine enregistrée.</div>';
+      el.classList.remove("hidden");
+      btnVoirTout.textContent = "Masquer l'historique";
+    } else {
+      el.classList.add("hidden");
+      btnVoirTout.textContent = "Voir tout l'historique";
+    }
+  });
+}
 document.getElementById("btn-accueil-vers-notes").addEventListener("click", () => afficherPage("notes"));
 document.getElementById("btn-accueil-vers-historique").addEventListener("click", () => afficherPage("historique"));
 document.getElementById("btn-accueil-vers-personnaliser").addEventListener("click", () => afficherPage("personnaliser"));
@@ -730,6 +1013,10 @@ document.getElementById("btn-notes-vers-historique").addEventListener("click", (
 document.getElementById("btn-historique-vers-accueil").addEventListener("click", () => afficherPage("accueil"));
 document.getElementById("btn-historique-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
 document.getElementById("btn-historique-vers-notes").addEventListener("click", () => afficherPage("notes"));
+document.getElementById("btn-stats-vers-accueil").addEventListener("click", () => afficherPage("accueil"));
+document.getElementById("btn-stats-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
+document.getElementById("btn-stats-vers-notes").addEventListener("click", () => afficherPage("notes"));
+document.getElementById("btn-stats-vers-historique").addEventListener("click", () => afficherPage("historique"));
 
 document.getElementById("btn-personnaliser-vers-accueil").addEventListener("click", () => afficherPage("accueil"));
 document.getElementById("btn-personnaliser-vers-carnet").addEventListener("click", () => afficherPage("carnet"));
@@ -1009,5 +1296,6 @@ if (perso.configure && perso.prenom) {
   afficherPage("bienvenue");
 }
 
+verifierSauvegardeHebdo();
 afficherJour();
 mettreAJourProgressionSemaine();
